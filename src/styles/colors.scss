@@ -1,0 +1,45 @@
+// Main theme
+$light-primary: #40402d; // Black
+$light-primary-dark: #2d2c21; // Darker Black
+$light-secondary: #f2dbb4; // Peach
+$light-secondary-dark: #d8c199; // Darker Peach
+$light-accent1: #a0c196; // Mint
+$light-accent-dark: #254c19; // Darker Mint
+$light-accent2: #f49586; // Tiger Lily
+$light-bg: #f5f5f5; // light background
+$light-surface: #ffffff; // cards, panels
+$light-text-primary: #40402d; // Black
+$light-text-secondary: #6b7280; // Neutral gray
+
+// Utility classes
+.primary-bg {
+  background-color: $light-primary;
+}
+
+.secondary-bg {
+  background-color: $light-secondary;
+}
+
+.accent1-bg {
+  background-color: $light-accent1;
+}
+
+.accent2-bg {
+  background-color: $light-accent2;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-black {
+  color: #40402d;
+}
+
+.primary-button-color {
+  background-color: $light-accent1;
+}
+
+.hover-button-mint:hover {
+  background-color: $light-accent-dark;
+}
