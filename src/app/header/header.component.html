@@ -1,0 +1,200 @@
+<header
+  [class.sticky]="sticky"
+  [class.top-0]="sticky"
+  [class.z-50]="sticky"
+  [ngClass]="{
+    'light-surface shadow-md': !transparent && theme === 'light',
+    'primary-bg shadow-md': !transparent && theme === 'dark',
+    'bg-transparent': transparent
+  }"
+  class="w-full transition-all duration-300"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo Section -->
+      <div
+        class="flex items-center space-x-3 cursor-pointer"
+        (click)="navigateTo('/')"
+      >
+        <img
+          *ngIf="logo"
+          [src]="logo"
+          [alt]="logoText"
+          class="h-8 w-auto hover:opacity-80 transition-opacity duration-200"
+        />
+
+        <span
+          *ngIf="logoText"
+          [ngClass]="{
+            'text-black': theme === 'light',
+            'text-white': theme === 'dark'
+          }"
+          class="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity duration-200"
+        >
+          {{ logoText }}
+        </span>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a
+          *ngFor="let link of navLinks"
+          [href]="link.href"
+          (click)="$event.preventDefault(); navigateTo(link.href)"
+          [ngClass]="{
+            'text-black hover:secondary-bg': theme === 'light',
+            'text-white hover:accent1-bg': theme === 'dark'
+          }"
+          class="px-3 py-2 rounded-md text-sm font-medium transition-all duration-200"
+        >
+          <span *ngIf="link.icon" class="mr-2">{{ link.icon }}</span>
+          {{ link.label }}
+        </a>
+      </nav>
+
+      <!-- Search Bar -->
+      <div
+        *ngIf="showSearch"
+        class="hidden md:flex items-center flex-1 max-w-md mx-8"
+      >
+        <form (submit)="onSearch($event)" class="relative w-full">
+          <input
+            type="text"
+            name="search"
+            [(ngModel)]="searchQuery"
+            placeholder="Search..."
+            [ngClass]="{
+              'light-bg text-black placeholder-gray-500 focus:light-surface':
+                theme === 'light',
+              'primary-bg text-white placeholder-gray-400 focus:light-primary-dark':
+                theme === 'dark'
+            }"
+            class="w-full pl-10 pr-4 py-2 rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-accent1 focus:border-transparent transition-all duration-200"
+          />
+          <span
+            class="absolute left-3 top-2.5 text-gray-400 pointer-events-none"
+            >🔍</span
+          >
+        </form>
+      </div>
+
+      <!-- Desktop Buttons -->
+      <div class="hidden md:flex items-center space-x-3">
+        <button
+          (click)="onSignIn()"
+          [ngClass]="{
+            'text-black hover:secondary-bg': theme === 'light',
+            'text-white hover:accent1-bg': theme === 'dark'
+          }"
+          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent1 whitespace-nowrap"
+        >
+          Sign In
+        </button>
+
+        <button
+          (click)="onGetStarted()"
+          class="px-4 py-2 rounded-lg font-medium primary-button-color text-white hover-button-mint transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 whitespace-nowrap"
+        >
+          Get Started
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        (click)="toggleMobileMenu()"
+        [ngClass]="{
+          'text-gray-700 hover:bg-gray-100': theme === 'light',
+          'text-gray-300 hover:bg-gray-800': theme === 'dark'
+        }"
+        class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200"
+        [attr.aria-expanded]="mobileMenuOpen"
+        aria-label="Toggle menu"
+      >
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            *ngIf="!mobileMenuOpen"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+          <path
+            *ngIf="mobileMenuOpen"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    *ngIf="mobileMenuOpen"
+    [ngClass]="{
+      'light-surface border-secondary': theme === 'light',
+      'primary-bg border-accent1': theme === 'dark'
+    }"
+    class="md:hidden border-t"
+  >
+    <div class="px-4 pt-2 pb-3 space-y-1">
+      <!-- Mobile Search -->
+      <div *ngIf="showSearch" class="pb-3">
+        <form (submit)="onSearch($event)">
+          <input
+            type="text"
+            placeholder="Search..."
+            [ngClass]="{
+              'light-bg text-black placeholder-gray-500': theme === 'light',
+              'primary-bg text-white placeholder-gray-400': theme === 'dark'
+            }"
+            class="w-full px-4 py-2 rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          />
+        </form>
+      </div>
+
+      <!-- Mobile Nav Links -->
+      <a
+        *ngFor="let link of navLinks"
+        [href]="link.href"
+        (click)="
+          $event.preventDefault(); navigateTo(link.href); toggleMobileMenu()
+        "
+        [ngClass]="{
+          'text-gray-700 hover:bg-gray-100 hover:text-gray-900':
+            theme === 'light',
+          'text-gray-300 hover:bg-gray-800 hover:text-white': theme === 'dark'
+        }"
+        class="block px-3 py-2 rounded-md text-base font-medium transition-all duration-200"
+      >
+        <span *ngIf="link.icon" class="mr-2">{{ link.icon }}</span>
+        {{ link.label }}
+      </a>
+
+      <!-- Mobile Buttons -->
+      <div class="pt-4 space-y-2">
+        <button
+          (click)="onSignIn(); toggleMobileMenu()"
+          [ngClass]="{
+            'secondary-bg text-black hover:light-secondary-dark':
+              theme === 'light',
+            'primary-bg text-white hover:light-primary-dark': theme === 'dark'
+          }"
+          class="w-full px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+        >
+          Sign In
+        </button>
+        <button (click)="onGetStarted(); toggleMobileMenu()">
+          Get Started
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.md\:hidden {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Optional: Add backdrop blur for transparent headers
+header.bg-transparent {
+  @apply backdrop-blur-sm;
+}
+
+// Custom scrollbar for search if needed
+input[type="text"] {
+  &::-webkit-search-cancel-button {
+    @apply cursor-pointer;
+  }
+}
