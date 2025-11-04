@@ -1,1 +1,32 @@
+<!-- src/app/home/home.component.html -->
 <app-header></app-header>
+
+<div class="container">
+  <h2>API Playground</h2>
+
+  <!-- PING TEST -->
+  <section>
+    <h3>Test API Connection</h3>
+    <button (click)="ping()">Ping /api/ping</button>
+    <pre>{{ pingResult | json }}</pre>
+  </section>
+
+  <hr />
+
+  <!-- LOGIN -->
+  <section *ngIf="!isLoggedIn">
+    <h3>Login</h3>
+    <input [(ngModel)]="email" placeholder="Email" />
+    <input [(ngModel)]="password" type="password" placeholder="Password" />
+    <button (click)="login()">Login</button>
+    <pre>{{ loginResult | json }}</pre>
+  </section>
+
+  <!-- LOGGED IN -->
+  <section *ngIf="isLoggedIn">
+    <h3>Welcome!</h3>
+    <button (click)="loadProfile()">Refresh Profile</button>
+    <button (click)="logout()">Logout</button>
+    <pre>{{ profile | json }}</pre>
+  </section>
+</div>
