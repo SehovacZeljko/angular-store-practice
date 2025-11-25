@@ -1,7 +1,7 @@
 // src/app/app.component.ts
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ApiService } from './services/api.service';
+import { AuthService } from './services/auth.service';   // ← NEW: use AuthService instead
 
 @Component({
   selector: 'app-root',
@@ -11,12 +11,25 @@ import { ApiService } from './services/api.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  private api = inject(ApiService);
+  private authService = inject(AuthService);   // ← inject AuthService
 
   ngOnInit() {
-    this.api.initCsrf().subscribe({
-      next: () => console.log('CSRF cookie set'),
-      error: (err) => console.error('CSRF failed:', err),
-    });
+    // If we have a token → try to load the current user
+    if (this.authService.isLoggedIn()) {
+      this.authService.fetchMe().subscribe({
+        next: (res) => {
+          console.log('User loaded:', res.user.name);
+          // everything is fine – user is authenticated
+        },
+        error: (err) => {
+          console.warn('Token invalid or expired → logging out');
+          this.authService.logout();   // clears token + redirects to login
+        }
+      });
+    } else {
+      console.log('No token found – user is guest');
+      // optional: redirect to login if you want
+      // this.router.navigate(['/login']);
+    }
   }
 }
