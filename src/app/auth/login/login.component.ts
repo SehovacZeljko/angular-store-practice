@@ -33,7 +33,7 @@ export class LoginComponent {
     const { email, password } = this.form.getRawValue();
 
     this.auth.login(email!, password!).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: () => this.router.navigate(['/home']),
       error: (err) => {
         this.error = err.error?.message || 'Login failed';
         this.loading = false;

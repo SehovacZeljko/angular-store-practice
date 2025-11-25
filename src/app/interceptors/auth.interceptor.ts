@@ -1,14 +1,8 @@
-// src/app/interceptors/auth.interceptor.ts
-import { HttpInterceptorFn, HttpRequest, HttpHandlerFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { TokenStorage } from '../services/token.storage';
 
-export const authInterceptor: HttpInterceptorFn = (
-  req: HttpRequest<unknown>,
-  next: HttpHandlerFn
-) => {
-  const authService = inject(AuthService);
-  const token = authService.getToken();
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const token = TokenStorage.get();
 
   if (token) {
     req = req.clone({
@@ -17,5 +11,6 @@ export const authInterceptor: HttpInterceptorFn = (
       }
     });
   }
+
   return next(req);
 };
