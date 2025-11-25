@@ -28,6 +28,7 @@ export class RegisterComponent {
   error = '';
   loading = false;
 
+
   passwordMatch(g: any) {
     return g.get('password')?.value === g.get('password_confirmation')?.value
       ? null
@@ -43,11 +44,12 @@ export class RegisterComponent {
     const { name, email, password, password_confirmation } = this.form.getRawValue();
 
     this.auth.register(name!, email!, password!, password_confirmation!).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: () => this.router.navigate(['/home']),
       error: (err) => {
         this.error = err.error?.message || 'Registration failed';
         this.loading = false;
       },
     });
   }
+
 }
