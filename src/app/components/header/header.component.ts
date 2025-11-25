@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+// src/app/components/header/header.component.ts
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,} from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 interface NavLink {
   label: string;
@@ -12,11 +14,19 @@ interface NavLink {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule], 
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
+ 
+  isLoggedIn$ = this.auth.isLoggedIn$;
+  currentUser$ = this.auth.currentUser$;
+
 
   logo = '';
   logoText = 'MyApp';
@@ -26,17 +36,15 @@ export class HeaderComponent {
   theme: 'light' | 'dark' = 'light';
 
   navLinks: NavLink[] = [
-    { label: 'Home', href: '/home'},
-    { label: 'Products', href: '/home'},
-    { label: 'Services', href: '/home'},
-    { label: 'About', href: '/home'},
-    { label: 'Contact', href: '/home'},
+    { label: 'Home', href: '/home' },
+    { label: 'Products', href: '/products' },
+    { label: 'Services', href: '/services' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   mobileMenuOpen = false;
   searchQuery = '';
-
-  constructor(private router: Router) {}
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
@@ -45,24 +53,23 @@ export class HeaderComponent {
   onSearch(event: Event): void {
     event.preventDefault();
     console.log('Search query:', this.searchQuery);
-    // Implement your search logic here
   }
 
   onSignIn(): void {
-    console.log('Sign in clicked');
-    // this.router.navigate(['/login']);
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 
   onGetStarted(): void {
-    console.log('Get started clicked');
-    // this.router.navigate(['/signup']);
-    this.router.navigate(['/register'])
+    this.router.navigate(['/register']);
+  }
+
+  onLogout(): void {
+    this.auth.logout();
+    this.mobileMenuOpen = false; 
   }
 
   navigateTo(href: string): void {
-    // this.router.navigate([href]);
-    console.log('Navigate to:', href);
-    this.router.navigate([`${href}`])
+    this.router.navigate([href]);
+    this.mobileMenuOpen = false; 
   }
 }

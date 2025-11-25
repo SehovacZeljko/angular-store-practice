@@ -1,7 +1,7 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, map } from 'rxjs';
 import { Router } from '@angular/router';
 import { TokenStorage } from './token.storage';
 
@@ -11,9 +11,16 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
+  public isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
+
+constructor(private http: HttpClient, private router: Router) {
     if (TokenStorage.hasToken()) {
-      this.fetchMe().subscribe();
+      this.fetchMe().subscribe({
+        error: () => {
+          TokenStorage.clear();
+          this.currentUserSubject.next(null);
+        }
+      });
     }
   }
 
@@ -38,7 +45,7 @@ export class AuthService {
       .pipe(tap(res => this.currentUserSubject.next(res.user)));
   }
 
-  logout(): void {
+logout(): void {
     this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
       next: () => this.clear(),
       error: () => this.clear()
