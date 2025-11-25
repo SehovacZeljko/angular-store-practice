@@ -26,7 +26,7 @@ export class HeaderComponent {
   theme: 'light' | 'dark' = 'light';
 
   navLinks: NavLink[] = [
-    { label: 'Home', href: '/', icon: '🏠' },
+    { label: 'Home', href: '/home', icon: '🏠' },
     { label: 'Products', href: '/products', icon: '📦' },
     { label: 'Services', href: '/services', icon: '⚙️' },
     { label: 'About', href: '/about', icon: 'ℹ️' },
@@ -51,15 +51,18 @@ export class HeaderComponent {
   onSignIn(): void {
     console.log('Sign in clicked');
     // this.router.navigate(['/login']);
+    this.router.navigate(['/login'])
   }
 
   onGetStarted(): void {
     console.log('Get started clicked');
     // this.router.navigate(['/signup']);
+    this.router.navigate(['/register'])
   }
 
   navigateTo(href: string): void {
     // this.router.navigate([href]);
     console.log('Navigate to:', href);
+    this.router.navigate([`${href}`])
   }
 }

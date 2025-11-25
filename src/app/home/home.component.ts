@@ -1,8 +1,8 @@
-// src/app/home/home.component.ts
+
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ← Add this
 import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from '../header/header.component';
+import { HeaderComponent } from '../components/header/header.component';
 import { ApiService } from '../services/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
