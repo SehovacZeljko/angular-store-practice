@@ -17,8 +17,8 @@ interface NavLink {
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  // Configuration - Edit these properties
-  logo = ''; // Add your logo URL here
+
+  logo = '';
   logoText = 'MyApp';
   sticky = true;
   transparent = false;
@@ -26,11 +26,11 @@ export class HeaderComponent {
   theme: 'light' | 'dark' = 'light';
 
   navLinks: NavLink[] = [
-    { label: 'Home', href: '/home', icon: '🏠' },
-    { label: 'Products', href: '/products', icon: '📦' },
-    { label: 'Services', href: '/services', icon: '⚙️' },
-    { label: 'About', href: '/about', icon: 'ℹ️' },
-    { label: 'Contact', href: '/contact', icon: '📧' },
+    { label: 'Home', href: '/home'},
+    { label: 'Products', href: '/home'},
+    { label: 'Services', href: '/home'},
+    { label: 'About', href: '/home'},
+    { label: 'Contact', href: '/home'},
   ];
 
   mobileMenuOpen = false;
