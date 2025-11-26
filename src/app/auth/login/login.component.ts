@@ -12,9 +12,9 @@ import { HeaderComponent } from '../../components/header/header.component';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  private fb = inject(FormBuilder);        // ← inject it here 
-  private auth = inject(AuthService);      // ← also inject AuthService
-  private router = inject(Router);         // ← and Router
+  private fb = inject(FormBuilder);
+  private auth = inject(AuthService); 
+  private router = inject(Router);    
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
