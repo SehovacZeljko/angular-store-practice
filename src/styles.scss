@@ -1,4 +1,7 @@
 @use "./styles/colors" as *;
+@forward "./styles/index";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
