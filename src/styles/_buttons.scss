@@ -1,6 +1,5 @@
-// src/styles/_buttons.scss
 @use "sass:meta";
-@use "./_colors" as *;        // ← this makes $light-accent1 available
+@use "./_colors" as *;    
 
 .btn-primary {
   @apply w-full rounded-lg font-medium text-white whitespace-nowrap
