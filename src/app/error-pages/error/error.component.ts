@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-server-error',
+  selector: 'app-error',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './server-error.component.html',
-  styleUrl: './server-error.component.scss'
+  templateUrl: './error.component.html',
+  styleUrl: './error.component.scss'
 })
-export class ServerErrorComponent {
+export class ErrorComponent {
 
 }

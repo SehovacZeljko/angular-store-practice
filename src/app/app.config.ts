@@ -1,7 +1,9 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, ErrorHandler } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { GlobalErrorHandler } from './services/error-handler.service';
 
 import { routes } from './app.routes';
 import { authInterceptor } from './interceptors/auth.interceptor';
@@ -19,5 +21,6 @@ export const appConfig: ApplicationConfig = {
 
     // Smooth animations (MatDialog, etc.)
     provideAnimationsAsync(),
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
 };

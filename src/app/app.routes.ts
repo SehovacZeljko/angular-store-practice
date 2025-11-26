@@ -40,8 +40,8 @@ export const routes: Routes = [
   },
   {
     path: 'error',
-    loadComponent: () => import('./error-pages/server-error/server-error.component')
-      .then(c => c.ServerErrorComponent),
+    loadComponent: () => import('./error-pages/error/error.component')
+      .then(c => c.ErrorComponent),
     title: 'Something Went Wrong'
   },
 
