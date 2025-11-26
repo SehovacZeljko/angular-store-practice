@@ -37,10 +37,11 @@ export class HeaderComponent {
 
   navLinks: NavLink[] = [
     { label: 'Home', href: '/home' },
-    { label: 'Products', href: '/products' },
+    { label: 'Profile', href: '/profile' },
     { label: 'Services', href: '/services' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
+
   ];
 
   mobileMenuOpen = false;
